@@ -10,9 +10,14 @@ import sys
 #"appgn00724@gmail.com" "Aa19820727"
 
 #googleDriver_mobile Setup
-mobile_emulation = { "deviceName": "iPhone X" }
-chrome_options = webdriver.ChromeOptions()
-chrome_options.add_experimental_option("mobileEmulation", mobile_emulation)
+
+#initZone
+board_dic = {}
+
+class DcardBoradList:
+    def __init__(self, boardname, url):
+            self.boardname = boardname
+            self.url = "https://www.dcard.tw/" + url
 
 def waitForload(driver):
     elem = driver.find_element_by_tag_name("html")
@@ -28,7 +33,7 @@ def waitForload(driver):
         except StaleElementReferenceException:
             return
 
-def ConnectDcard(url):
+def ConnectWeb(url):
     m_url = url
     m_headers = {
         'Referer':'https://duckduckgo.com/',
@@ -40,8 +45,13 @@ def ConnectDcard(url):
         'DNT': '1',
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/604.5.6 (KHTML, like Gecko) Version/11.0.3 Safari/604.5.6'
     }
-    #_driver = webdriver.Chrome(executable_path="/Users/Mac/Documents/作品/Xcode/Python/New/chromedriver")
-    _driver = webdriver.Chrome(executable_path="./Resource/driver/chromedriver",chrome_options = chrome_options)
+
+    #mobile_emulation = { "deviceName": "iPhone 6" }
+    #chrome_options = webdriver.ChromeOptions()
+    #chrome_options.add_experimental_option("mobileEmulation", mobile_emulation)
+    #_driver = webdriver.Chrome(executable_path="./Resource/driver/chromedriver",chrome_options = chrome_options)
+
+    _driver = webdriver.Chrome(executable_path="./Resource/driver/chromedriver")
     _driver.headers = m_headers
     
 
@@ -51,7 +61,30 @@ def ConnectDcard(url):
     x = _driver.get(m_url)
     print("Connect Done")
     time.sleep(random.randint(1,3))
+
     return _driver
 
-print(ConnectDcard("https://www.dcard.tw/f/talk"))
+def GetDcardBoradList(driver):
+    m_driver = driver
+    m_bs = bs(m_driver.page_source, "html.parser").find_all("li")
+    m_boardlist = []
+    
+    for x in m_bs:
 
+        #Get url and boardtitle
+        if x.a.get('href'):
+
+            #make sure boardtitle is unique
+            if board_dic.get(x.text) == None:
+                board_dic[x.text] = DcardBoradList(boardname=x.text, url=x.a.get('href'))
+
+    return board_dic
+
+boarddic = GetDcardBoradList(ConnectWeb("https://www.dcard.tw/f/"))
+
+#the main tool to get class member
+#keys = boarddic.keys()
+#for x in keys:
+#    boarddic[x].url
+#    boarddic[x].boardname
+    
