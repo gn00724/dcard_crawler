@@ -18,6 +18,7 @@ class DcardBoradList:
     def __init__(self, boardname, url):
             self.boardname = boardname
             self.url = "https://www.dcard.tw/" + url
+            self.postlist = []
 
 def waitForload(driver):
     elem = driver.find_element_by_tag_name("html")
@@ -80,9 +81,45 @@ def GetDcardBoradList(driver):
 
     return board_dic
 
-boarddic = GetDcardBoradList(ConnectWeb("https://www.dcard.tw/f/"))
+def GetpostList(boardurl,lstID):
+    m_url = boardurl
+    m_id = lstID
+    _driver = ConnectWeb(m_url)
+
+    _driver.execute_script("window.scrollTo(0, 1000000)")
+    #wait for loading
+    time.sleep(random.randint(1,3))
+
+    m_bs = bs(_driver.page_source, "html.parser").find_all("a", class_="PostEntry_root_V6g0r")
+    m_postlist = []
+
+    for x in m_bs:
+        r = x.get('href').find('-')
+        r1 = x.get('href')
+
+        #Case that string have so many "-", so split use "-"" locate
+        m_postlist.append([r1[0:r], r1[r+1:len(r1)]])
+    
+    print(m_postlist)
+
+def Getcontent(article_url):
+    #id, likes_count, respones_count, content
+    m_url = article_url
+    _driver = ConnectWeb(m_url)
+    m_bs_content = bs(_driver.page_source, "html.parser").find_all("div", class_="Post_content_NKEl9")
+    m_bs_likes = bs(_driver.page_source, "html.parser").find_all("button", class_="PostFooter_likeBtn_jmo71")
+    m_bs_respon = bs(_driver.page_source, "html.parser").find_all("button", class_="PostFooter_commentBtn_X8ZXa")
+    m_bs_id = m_url.split("/")[-1]
+
+    m_content = m_bs_content[0].text
+    m_likes = m_bs_likes[0].text.split(" ")[1]
+    m_respons = m_bs_respon[0].text.split(" ")[1]
+    return [m_bs_id, m_likes, m_respons, m_content]
+
+GetpostList("https://www.dcard.tw/f/tvepisode?latest=true")
 
 #the main tool to get class member
+#boarddic = GetDcardBoradList(ConnectWeb("https://www.dcard.tw/f/"))
 #keys = boarddic.keys()
 #for x in keys:
 #    boarddic[x].url
