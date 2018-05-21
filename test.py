@@ -81,14 +81,13 @@ def GetDcardBoradList(driver):
 
     return board_dic
 
-def GetpostList(boardurl,lstID):
-    m_url = boardurl
-    m_id = lstID
-    _driver = ConnectWeb(m_url)
-
+def GetpostList(driver,datalstID):
+    m_id = datalstID
+    lstID = 0
+    _driver = driver
     _driver.execute_script("window.scrollTo(0, 1000000)")
     #wait for loading
-    time.sleep(random.randint(1,3))
+    time.sleep(random.randint(3,5))
 
     m_bs = bs(_driver.page_source, "html.parser").find_all("a", class_="PostEntry_root_V6g0r")
     m_postlist = []
@@ -98,9 +97,20 @@ def GetpostList(boardurl,lstID):
         r1 = x.get('href')
 
         #Case that string have so many "-", so split use "-"" locate
+        #url,title
         m_postlist.append([r1[0:r], r1[r+1:len(r1)]])
-    
-    print(m_postlist)
+
+    lstID = int(m_postlist[-1][0].split("/")[-1])
+
+    if lstID <= m_id:
+        print("lst = " + str(lstID) + " datalstID = " + str(datalstID) + " process Done")
+        _driver.close()
+    else:
+        print(lstID, m_id)
+        GetpostList(_driver,m_id)
+        
+    print(m_postlist) 
+    return m_postlist
 
 def Getcontent(article_url):
     #id, likes_count, respones_count, content
@@ -116,7 +126,10 @@ def Getcontent(article_url):
     m_respons = m_bs_respon[0].text.split(" ")[1]
     return [m_bs_id, m_likes, m_respons, m_content]
 
-GetpostList("https://www.dcard.tw/f/tvepisode?latest=true")
+
+
+tmpdriver = ConnectWeb("https://www.dcard.tw/f/tvepisode?latest=true")
+GetpostList(tmpdriver,228520264)
 
 #the main tool to get class member
 #boarddic = GetDcardBoradList(ConnectWeb("https://www.dcard.tw/f/"))
@@ -124,4 +137,3 @@ GetpostList("https://www.dcard.tw/f/tvepisode?latest=true")
 #for x in keys:
 #    boarddic[x].url
 #    boarddic[x].boardname
-    
