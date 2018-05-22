@@ -6,6 +6,7 @@ from selenium.webdriver.remote.webelement import WebElement
 from selenium.common.exceptions import StaleElementReferenceException
 from bs4 import BeautifulSoup as bs
 import sys
+import sqlite3 as sql
 
 #"appgn00724@gmail.com" "Aa19820727"
 
@@ -90,27 +91,48 @@ def GetpostList(driver,datalstID):
     time.sleep(random.randint(3,5))
 
     m_bs = bs(_driver.page_source, "html.parser").find_all("a", class_="PostEntry_root_V6g0r")
-    m_postlist = []
+    m_postdict = {}
+    _tmp = {}
 
     for x in m_bs:
         r = x.get('href').find('-')
         r1 = x.get('href')
+        r_url = r1[0:r]
+        r_title = r1[r+1:len(r1)]
+        r_postID = r1[0:r].split("/")[-1]
 
         #Case that string have so many "-", so split use "-"" locate
         #url,title
-        m_postlist.append([r1[0:r], r1[r+1:len(r1)]])
 
-    lstID = int(m_postlist[-1][0].split("/")[-1])
+        if not _tmp.__contains__(r_postID):
+            _tmp[r_postID] = [r_url,  r_title]
+
+    #search -1 sort keys and turn in to int
+    lstID = int(list(_tmp.keys())[-1])
 
     if lstID <= m_id:
         print("lst = " + str(lstID) + " datalstID = " + str(datalstID) + " process Done")
+        #when final check, add return bsitem
+        for x in m_bs:
+            r = x.get('href').find('-')
+            r1 = x.get('href')
+            r_url = r1[0:r]
+            r_title = r1[r+1:len(r1)]
+            r_postID = r1[0:r].split("/")[-1]
+
+        #Case that string have so many "-", so split use "-"" locate
+        #url,title
+
+            if not m_postdict.__contains__(r_postID):
+                m_postdict[r_postID] = [r_url,  r_title]
+
         _driver.close()
+
     else:
         print(lstID, m_id)
         GetpostList(_driver,m_id)
-        
-    print(m_postlist) 
-    return m_postlist
+
+    return m_postdict
 
 def Getcontent(article_url):
     #id, likes_count, respones_count, content
@@ -129,7 +151,7 @@ def Getcontent(article_url):
 
 
 tmpdriver = ConnectWeb("https://www.dcard.tw/f/tvepisode?latest=true")
-GetpostList(tmpdriver,228520264)
+GetpostList(tmpdriver,228780271)
 
 #the main tool to get class member
 #boarddic = GetDcardBoradList(ConnectWeb("https://www.dcard.tw/f/"))
