@@ -8,10 +8,6 @@ from bs4 import BeautifulSoup as bs
 import sys
 import sqlite3 as sql
 
-#"appgn00724@gmail.com" "Aa19820727"
-
-#googleDriver_mobile Setup
-
 #initZone
 board_dic = {}
 
@@ -150,8 +146,8 @@ def Getcontent(article_url):
 
 
 
-tmpdriver = ConnectWeb("https://www.dcard.tw/f/tvepisode?latest=true")
-GetpostList(tmpdriver,228780271)
+#tmpdriver = ConnectWeb("https://www.dcard.tw/f/tvepisode?latest=true")
+#GetpostList(tmpdriver,228780271)
 
 #the main tool to get class member
 #boarddic = GetDcardBoradList(ConnectWeb("https://www.dcard.tw/f/"))
