@@ -77,9 +77,6 @@ def renewPostList():
             print(_commad + _command_column + _input)
             cursor.execute(_commad + _command_column + _input)
 
-
-
-
     conn.commit()
     conn.close()
 
