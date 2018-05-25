@@ -7,6 +7,7 @@ from selenium.common.exceptions import StaleElementReferenceException
 from bs4 import BeautifulSoup as bs
 import sys
 import sqlite3 as sql
+from datetime import datetime
 
 #initZone
 board_dic = {}
@@ -16,6 +17,18 @@ class DcardBoradList:
             self.boardname = boardname
             self.url = "https://www.dcard.tw/" + url
             self.postlist = []
+
+class Dcardpost:
+    def __init__(self, c_postID):
+            self.c_postID = int(c_postID)
+            self.title = ""
+            self.c_MorF = ""
+            self.c_school = ""
+            self.c_postTime = ""
+            self.c_countLikes = int
+            self.c_countComments = int
+            self.c_url = ""
+            self.c_postContent = ""
 
 def waitForload(driver):
     elem = driver.find_element_by_tag_name("html")
@@ -58,14 +71,14 @@ def ConnectWeb(url):
     time.sleep(random.randint(1,3))
     x = _driver.get(m_url)
     print("Connect Done")
-    time.sleep(random.randint(1,3))
+    time.sleep(random.randint(3,5))
 
     return _driver
 
 def GetDcardBoradList(driver):
     m_driver = driver
     m_bs = bs(m_driver.page_source, "html.parser").find_all("li")
-    m_boardlist = []
+    board_dic = {}
     
     for x in m_bs:
 
@@ -75,7 +88,7 @@ def GetDcardBoradList(driver):
             #make sure boardtitle is unique
             if board_dic.get(x.text) == None:
                 board_dic[x.text] = DcardBoradList(boardname=x.text, url=x.a.get('href'))
-
+    m_driver.close()
     return board_dic
 
 def GetpostList(driver,datalstID):
@@ -120,7 +133,9 @@ def GetpostList(driver,datalstID):
         #url,title
 
             if not m_postdict.__contains__(r_postID):
-                m_postdict[r_postID] = [r_url,  r_title]
+                m_postdict[r_postID] = Dcardpost(r_postID)
+                m_postdict[r_postID].c_url = r_url
+                m_postdict[r_postID].c_title = r_title
 
         _driver.close()
 
@@ -142,12 +157,20 @@ def Getcontent(article_url):
     m_content = m_bs_content[0].text
     m_likes = m_bs_likes[0].text.split(" ")[1]
     m_respons = m_bs_respon[0].text.split(" ")[1]
-    return [m_bs_id, m_likes, m_respons, m_content]
 
+    m_bs_Author = bs(_driver.page_source, "html.parser").find_all("div", class_="PostAuthorHeader_avatar_1V21V")
+    m_bs_Author_school = bs(_driver.page_source, "html.parser").find_all("span", class_="PostAuthor_root_3vAJf")
+    
+    m_MorF = "F" if "female" in str(m_bs_Author[0].contents[0]) else "M"
+    m_school = m_bs_Author_school[0].text
 
+    m_bs_postDate = bs(_driver.page_source, "html.parser").find_all("span", class_="Post_date_2ipeY")
+    m_date = m_bs_postDate[0].text.replace("日", "").replace("月", "/")
 
-#tmpdriver = ConnectWeb("https://www.dcard.tw/f/tvepisode?latest=true")
-#GetpostList(tmpdriver,228780271)
+    _driver.close()
+    return [m_bs_id, m_likes, m_respons, m_content, m_MorF, m_school, m_date]
+
+print(Getcontent("https://www.dcard.tw/f/makeup/p/228944963"))
 
 #the main tool to get class member
 #boarddic = GetDcardBoradList(ConnectWeb("https://www.dcard.tw/f/"))
