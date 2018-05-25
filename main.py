@@ -66,11 +66,11 @@ def renewPostList():
             _input = "(" \
                         + "\"" + str(addkey) + "\"" + ","  \
                         + "\""+ str(postdic[addkey].c_url)+ "\"" + "," \
-                        + "\"" + str(postdic[addkey].c_MorF)+ "\"" \
-                        + "\"" + str(postdic[addkey].c_school)+ "\"" \
-                        + "\"" + str(postdic[addkey].c_postTime)+ "\"" \
-                        + "\"" + str(postdic[addkey].c_countLikes)+ "\"" \
-                        + "\"" + str(postdic[addkey].c_countComments)+ "\"" \
+                        + "\"" + str(postdic[addkey].c_MorF)+ "\"," + \
+                        + "\"" + str(postdic[addkey].c_school)+ "\"," \
+                        + "\"" + str(postdic[addkey].c_postTime)+ "\"," \
+                        + "\"" + str(postdic[addkey].c_countLikes)+ "\"," \
+                        + "\"" + str(postdic[addkey].c_countComments)+ "\"," \
                         + "\"" + str(postdic[addkey].c_postContent)+ "\"" \
                         + ")"
 
