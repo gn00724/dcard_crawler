@@ -62,11 +62,15 @@ def ConnectWeb(url):
     #chrome_options.add_experimental_option("mobileEmulation", mobile_emulation)
     #_driver = webdriver.Chrome(executable_path="./Resource/driver/chromedriver",chrome_options = chrome_options)
 
+    #setting headless mode
+    options = webdriver.ChromeOptions()
+    options.add_argument('headless')
+
     try:
-        _driver = webdriver.Chrome(executable_path="./Resource/driver/chromedriver")
+        _driver = webdriver.Chrome(executable_path="./Resource/driver/chromedriver", chrome_options=options)
     except:
         print("Using Windows chromedriver")
-        _driver = webdriver.Chrome(executable_path="./Resource/driver/chromedriver.exe")
+        _driver = webdriver.Chrome(executable_path="./Resource/driver/chromedriver.exe", chrome_options=options)
     _driver.headers = m_headers
     
 
@@ -180,30 +184,6 @@ def Getcontent(article_url):
     _driver.close()
     return [m_bs_id, m_likes, m_respons, m_content, m_MorF, m_school, m_date]
 
-
-
-def test():
-    _t = ConnectWeb("https://www.dcard.tw/f/makeup/")
-    postdic = GetpostList(_t, 228944963)
-    #back ID:{}
-
-    for key in postdic.keys():
-        _url = postdic[key].c_url
-        rawlist = Getcontent(_url)
-
-        postdic[key].c_MorF = rawlist[4]
-        postdic[key].c_school = rawlist[5]
-        postdic[key].c_postTime = rawlist[6]
-        postdic[key].c_countLikes = rawlist[1]
-        postdic[key].c_countComments = rawlist[2]
-        postdic[key].c_postContent = rawlist[3]
-    
-    for t in postdic.keys():
-        print(postdic[t])
-
-
-
-test()
 
 #print(Getcontent("https://www.dcard.tw/f/makeup/p/228944963"))
 

@@ -39,17 +39,49 @@ def renewPostList():
     for x in boardList:
         _commad = "CREATE TABLE if not exists "
         _tableName = "board_"+ x[0].split("//")[2]
-        _content = "(postID INT PRIMARY KEY NOT NULL, postUrl, postTitle" + ")" 
+        _content = "(postID INT PRIMARY KEY NOT NULL, postUrl, MorF, School, postTime, countlikes, countComments, Content" + ")" 
         #print(_commad+_tableName+_content)
         cursor.execute(_commad+_tableName+_content)
 
         _url = "https://www.dcard.tw/" + x[0].split("//")[2]
         _commad = _url + "?latest=true"
         target = ConnectWeb(_commad)
-        print(GetpostList(target,228980271))
+        postdic = GetpostList(target,228980271)
+
+        #To Create the class and get the data
+        for key in postdic.keys():
+            _url = postdic[key].c_url
+            rawlist = Getcontent(_url)
+            postdic[key].c_MorF = rawlist[4]
+            postdic[key].c_school = rawlist[5]
+            postdic[key].c_postTime = "2018+/" + rawlist[6]
+            postdic[key].c_countLikes = rawlist[1]
+            postdic[key].c_countComments = rawlist[2]
+            postdic[key].c_postContent = rawlist[3]
+
+        #To add in Table DB
+        for addkey in postdic.keys():
+            _commad = "INSERT OR REPLACE INTO "+_tableName
+            _command_column = "(postID, postUrl, MorF, School, postTime, countlikes, countComments, Content) VALUES "
+            _input = "(" \
+                        + "\"" + str(addkey) + "\"" + ","  \
+                        + "\""+ str(postdic[addkey].c_url)+ "\"" + "," \
+                        + "\"" + str(postdic[addkey].c_MorF)+ "\"" \
+                        + "\"" + str(postdic[addkey].c_school)+ "\"" \
+                        + "\"" + str(postdic[addkey].c_postTime)+ "\"" \
+                        + "\"" + str(postdic[addkey].c_countLikes)+ "\"" \
+                        + "\"" + str(postdic[addkey].c_countComments)+ "\"" \
+                        + "\"" + str(postdic[addkey].c_postContent)+ "\"" \
+                        + ")"
+
+            print(_commad + _command_column + _input)
+            cursor.execute(_commad + _command_column + _input)
+
+
+
 
     conn.commit()
     conn.close()
 
-
+renewBoardList()
 renewPostList()
