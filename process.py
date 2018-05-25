@@ -62,7 +62,11 @@ def ConnectWeb(url):
     #chrome_options.add_experimental_option("mobileEmulation", mobile_emulation)
     #_driver = webdriver.Chrome(executable_path="./Resource/driver/chromedriver",chrome_options = chrome_options)
 
-    _driver = webdriver.Chrome(executable_path="./Resource/driver/chromedriver")
+    try:
+        _driver = webdriver.Chrome(executable_path="./Resource/driver/chromedriver")
+    except:
+        print("Using Windows chromedriver")
+        _driver = webdriver.Chrome(executable_path="./Resource/driver/chromedriver.exe")
     _driver.headers = m_headers
     
 
@@ -134,43 +138,74 @@ def GetpostList(driver,datalstID):
 
             if not m_postdict.__contains__(r_postID):
                 m_postdict[r_postID] = Dcardpost(r_postID)
-                m_postdict[r_postID].c_url = r_url
+                m_postdict[r_postID].c_url = "https://www.dcard.tw" + r_url
                 m_postdict[r_postID].c_title = r_title
 
         _driver.close()
+        print("returning " + str(m_postdict))
+        return m_postdict
 
     else:
         print(lstID, m_id)
         GetpostList(_driver,m_id)
-
-    return m_postdict
+    None
 
 def Getcontent(article_url):
     #id, likes_count, respones_count, content
     m_url = article_url
     _driver = ConnectWeb(m_url)
-    m_bs_content = bs(_driver.page_source, "html.parser").find_all("div", class_="Post_content_NKEl9")
-    m_bs_likes = bs(_driver.page_source, "html.parser").find_all("button", class_="PostFooter_likeBtn_jmo71")
-    m_bs_respon = bs(_driver.page_source, "html.parser").find_all("button", class_="PostFooter_commentBtn_X8ZXa")
-    m_bs_id = m_url.split("/")[-1]
+    try:
+        m_bs_content = bs(_driver.page_source, "html.parser").find_all("div", class_="Post_content_NKEl9")
+        m_bs_likes = bs(_driver.page_source, "html.parser").find_all("button", class_="PostFooter_likeBtn_jmo71")
+        m_bs_respon = bs(_driver.page_source, "html.parser").find_all("button", class_="PostFooter_commentBtn_X8ZXa")
+        m_bs_Author = bs(_driver.page_source, "html.parser").find_all("div", class_="PostAuthorHeader_avatar_1V21V")
+        m_bs_Author_school = bs(_driver.page_source, "html.parser").find_all("span", class_="PostAuthor_root_3vAJf")
+        m_bs_postDate = bs(_driver.page_source, "html.parser").find_all("span", class_="Post_date_2ipeY")
 
-    m_content = m_bs_content[0].text
-    m_likes = m_bs_likes[0].text.split(" ")[1]
-    m_respons = m_bs_respon[0].text.split(" ")[1]
-
-    m_bs_Author = bs(_driver.page_source, "html.parser").find_all("div", class_="PostAuthorHeader_avatar_1V21V")
-    m_bs_Author_school = bs(_driver.page_source, "html.parser").find_all("span", class_="PostAuthor_root_3vAJf")
+    except:
+        print("Dcard was changed the class location")
     
-    m_MorF = "F" if "female" in str(m_bs_Author[0].contents[0]) else "M"
-    m_school = m_bs_Author_school[0].text
-
-    m_bs_postDate = bs(_driver.page_source, "html.parser").find_all("span", class_="Post_date_2ipeY")
-    m_date = m_bs_postDate[0].text.replace("日", "").replace("月", "/")
+    try:
+        m_bs_id = m_url.split("/")[-1]
+        m_content = m_bs_content[0].text
+        m_likes = m_bs_likes[0].text.split(" ")[1]
+        m_respons = m_bs_respon[0].text.split(" ")[1]
+        m_MorF = "F" if "female" in str(m_bs_Author[0].contents[0]) else "M"
+        m_school = m_bs_Author_school[0].text
+        m_date = m_bs_postDate[0].text.replace("日", "").replace("月", "/")
+    except:
+        m_content = "Deleted"
+        print(str(m_bs_id) + " the post was deleted")
 
     _driver.close()
     return [m_bs_id, m_likes, m_respons, m_content, m_MorF, m_school, m_date]
 
-print(Getcontent("https://www.dcard.tw/f/makeup/p/228944963"))
+
+
+def test():
+    _t = ConnectWeb("https://www.dcard.tw/f/makeup/")
+    postdic = GetpostList(_t, 228944963)
+    #back ID:{}
+
+    for key in postdic.keys():
+        _url = postdic[key].c_url
+        rawlist = Getcontent(_url)
+
+        postdic[key].c_MorF = rawlist[4]
+        postdic[key].c_school = rawlist[5]
+        postdic[key].c_postTime = rawlist[6]
+        postdic[key].c_countLikes = rawlist[1]
+        postdic[key].c_countComments = rawlist[2]
+        postdic[key].c_postContent = rawlist[3]
+    
+    for t in postdic.keys():
+        print(postdic[t])
+
+
+
+test()
+
+#print(Getcontent("https://www.dcard.tw/f/makeup/p/228944963"))
 
 #the main tool to get class member
 #boarddic = GetDcardBoradList(ConnectWeb("https://www.dcard.tw/f/"))
