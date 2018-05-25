@@ -1,0 +1,184 @@
+Using Windows chromedriver
+Connect Done
+lst = 228943781 datalstID = 228944963 process Done
+returning {'228941844': <__main__.Dcardpost object at 0x06675950>, '228938297': <__main__.Dcardpost object at 0x06675910>, '228939389': <__main__.Dcardpost object at 0x06675510>, '228943428': <__main__.Dcardpost object at 0x06675970>, '228939456': <__main__.Dcardpost object at 0x06675990>, '228938091': <__main__.Dcardpost object at 0x066759B0>, '228939800': <__main__.Dcardpost object at 0x066759D0>, '228940258': <__main__.Dcardpost object at 0x066759F0>, '228942357': <__main__.Dcardpost object at 0x06675A10>, '228932247': <__main__.Dcardpost object at 0x06675A30>, '228941894': <__main__.Dcardpost object at 0x06675A50>, '228943204': <__main__.Dcardpost object at 0x06675A70>, '228938105': <__main__.Dcardpost object at 0x06675A90>, '228941149': <__main__.Dcardpost object at 0x06675AB0>, '228937955': <__main__.Dcardpost object at 0x06675AD0>, '228942832': <__main__.Dcardpost object at 0x06675AF0>, '228938949': <__main__.Dcardpost object at 0x06675B10>, '228942435': <__main__.Dcardpost object at 0x06675B30>, '228938937': <__main__.Dcardpost object at 0x06675B50>, '228938367': <__main__.Dcardpost object at 0x06675B70>, '228944289': <__main__.Dcardpost object at 0x06675B90>, '228940483': <__main__.Dcardpost object at 0x06675BB0>, '228945678': <__main__.Dcardpost object at 0x06675BD0>, '228938230': <__main__.Dcardpost object at 0x06675BF0>, '228945437': <__main__.Dcardpost object at 0x06675C10>, '228944144': <__main__.Dcardpost object at 0x06675C30>, '228938500': <__main__.Dcardpost object at 0x06675C50>, '228939217': <__main__.Dcardpost object at 0x06675C70>, '228938410': <__main__.Dcardpost object at 0x06675C90>, '228942470': <__main__.Dcardpost object at 0x06675CB0>, '228943098': <__main__.Dcardpost object at 0x06675CD0>, '228939152': <__main__.Dcardpost object at 0x06675CF0>, '228945059': <__main__.Dcardpost object at 0x06675D10>, '228940856': <__main__.Dcardpost object at 0x06675D30>, '228945160': <__main__.Dcardpost object at 0x06675D50>, '228940326': <__main__.Dcardpost object at 0x06675D70>, '228941366': <__main__.Dcardpost object at 0x06675D90>, '228940513': <__main__.Dcardpost object at 0x06675DB0>, '228938236': <__main__.Dcardpost object at 0x06675DD0>, '228946280': <__main__.Dcardpost object at 0x06675DF0>, '228945156': <__main__.Dcardpost object at 0x06675E10>, '228945096': <__main__.Dcardpost object at 0x06675E30>, '228942825': <__main__.Dcardpost object at 0x06675E50>, '228939660': <__main__.Dcardpost object at 0x06675E70>, '228945441': <__main__.Dcardpost object at 0x06675E90>, '228945053': <__main__.Dcardpost object at 0x06675EB0>, '228945177': <__main__.Dcardpost object at 0x06675ED0>, '228944035': <__main__.Dcardpost object at 0x06675EF0>, '228940475': <__main__.Dcardpost object at 0x06675F10>, '228944948': <__main__.Dcardpost object at 0x06675F30>, '228946672': <__main__.Dcardpost object at 0x06675F50>, '228944861': <__main__.Dcardpost object at 0x06675F70>, '228940132': <__main__.Dcardpost object at 0x06675F90>, '228945530': <__main__.Dcardpost object at 0x06675FB0>, '228944887': <__main__.Dcardpost object at 0x06675FD0>, '228940443': <__main__.Dcardpost object at 0x06675FF0>, '228945755': <__main__.Dcardpost object at 0x06682030>, '228941463': <__main__.Dcardpost object at 0x06682050>, '228945534': <__main__.Dcardpost object at 0x06682070>, '228943781': <__main__.Dcardpost object at 0x06682090>}
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+Using Windows chromedriver
+Connect Done
+<__main__.Dcardpost object at 0x06675950>
+<__main__.Dcardpost object at 0x06675910>
+<__main__.Dcardpost object at 0x06675510>
+<__main__.Dcardpost object at 0x06675970>
+<__main__.Dcardpost object at 0x06675990>
+<__main__.Dcardpost object at 0x066759B0>
+<__main__.Dcardpost object at 0x066759D0>
+<__main__.Dcardpost object at 0x066759F0>
+<__main__.Dcardpost object at 0x06675A10>
+<__main__.Dcardpost object at 0x06675A30>
+<__main__.Dcardpost object at 0x06675A50>
+<__main__.Dcardpost object at 0x06675A70>
+<__main__.Dcardpost object at 0x06675A90>
+<__main__.Dcardpost object at 0x06675AB0>
+<__main__.Dcardpost object at 0x06675AD0>
+<__main__.Dcardpost object at 0x06675AF0>
+<__main__.Dcardpost object at 0x06675B10>
+<__main__.Dcardpost object at 0x06675B30>
+<__main__.Dcardpost object at 0x06675B50>
+<__main__.Dcardpost object at 0x06675B70>
+<__main__.Dcardpost object at 0x06675B90>
+<__main__.Dcardpost object at 0x06675BB0>
+<__main__.Dcardpost object at 0x06675BD0>
+<__main__.Dcardpost object at 0x06675BF0>
+<__main__.Dcardpost object at 0x06675C10>
+<__main__.Dcardpost object at 0x06675C30>
+<__main__.Dcardpost object at 0x06675C50>
+<__main__.Dcardpost object at 0x06675C70>
+<__main__.Dcardpost object at 0x06675C90>
+<__main__.Dcardpost object at 0x06675CB0>
+<__main__.Dcardpost object at 0x06675CD0>
+<__main__.Dcardpost object at 0x06675CF0>
+<__main__.Dcardpost object at 0x06675D10>
+<__main__.Dcardpost object at 0x06675D30>
+<__main__.Dcardpost object at 0x06675D50>
+<__main__.Dcardpost object at 0x06675D70>
+<__main__.Dcardpost object at 0x06675D90>
+<__main__.Dcardpost object at 0x06675DB0>
+<__main__.Dcardpost object at 0x06675DD0>
+<__main__.Dcardpost object at 0x06675DF0>
+<__main__.Dcardpost object at 0x06675E10>
+<__main__.Dcardpost object at 0x06675E30>
+<__main__.Dcardpost object at 0x06675E50>
+<__main__.Dcardpost object at 0x06675E70>
+<__main__.Dcardpost object at 0x06675E90>
+<__main__.Dcardpost object at 0x06675EB0>
+<__main__.Dcardpost object at 0x06675ED0>
+<__main__.Dcardpost object at 0x06675EF0>
+<__main__.Dcardpost object at 0x06675F10>
+<__main__.Dcardpost object at 0x06675F30>
+<__main__.Dcardpost object at 0x06675F50>
+<__main__.Dcardpost object at 0x06675F70>
+<__main__.Dcardpost object at 0x06675F90>
+<__main__.Dcardpost object at 0x06675FB0>
+<__main__.Dcardpost object at 0x06675FD0>
+<__main__.Dcardpost object at 0x06675FF0>
+<__main__.Dcardpost object at 0x06682030>
+<__main__.Dcardpost object at 0x06682050>
+<__main__.Dcardpost object at 0x06682070>
+<__main__.Dcardpost object at 0x06682090>
