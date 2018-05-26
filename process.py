@@ -161,6 +161,13 @@ def Getcontent(article_url):
     _driver = ConnectWeb(m_url)
 
     print("Trying to get post " + m_url)
+    m_bs_id = ""
+    m_content = ""
+    m_likes = ""
+    m_respons = ""
+    m_MorF = ""
+    m_school = ""
+    m_date = ""
 
     try:
         m_bs_content = bs(_driver.page_source, "html.parser").find_all("div", class_="Post_content_NKEl9")
