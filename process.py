@@ -151,7 +151,7 @@ def GetpostList(driver,datalstID):
                 m_postdict[r_postID].c_title = r_title
 
         _driver.close()
-        print("returning " + str(m_postdict))
+        #print("returning " + str(m_postdict))
         return m_postdict
     
 
