@@ -127,7 +127,12 @@ def GetpostList(driver,datalstID):
     #search -1 sort keys and turn in to int
     lstID = int(list(_tmp.keys())[-1])
 
-    if lstID <= m_id:
+    if lstID > m_id:
+        
+        print(lstID, m_id)
+        return GetpostList(_driver,m_id)
+
+    else:
         print("lst = " + str(lstID) + " datalstID = " + str(datalstID) + " process Done")
         #when final check, add return bsitem
         for x in m_bs:
@@ -148,12 +153,7 @@ def GetpostList(driver,datalstID):
         _driver.close()
         print("returning " + str(m_postdict))
         return m_postdict
-
-    else:
-        print(lstID, m_id)
-        GetpostList(_driver,m_id)
     
-    return "Not yet"
 
 def Getcontent(article_url):
     #id, likes_count, respones_count, content

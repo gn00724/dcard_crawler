@@ -52,9 +52,7 @@ def renewPostList():
         _url = "https://www.dcard.tw/" + x[0].split("//")[2]
         _commad = _url + "?latest=true"
         target = ConnectWeb(_commad)
-    
-        postidc = GetpostList(target,228948700)
-        print(postdic)
+        postdic = GetpostList(target,228948900)
 
         #To Create the class and get the data
         for key in postdic.keys():
