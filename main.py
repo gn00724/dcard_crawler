@@ -36,7 +36,13 @@ def renewPostList():
     conn = sqlite3.connect('./Resource/database/dcard.db')
     cursor = conn.cursor()
     boardList = cursor.execute('SELECT boardUrl From dcardBoardList')
+    _tcount = 0
+    _tcount2 = 0
+
     for x in boardList:
+        _tcount += 1
+        print("Trying to calBoard " + str(_tcount) + " of " + str(len(boardList.fetchall())))
+
         _commad = "CREATE TABLE if not exists "
         _tableName = "board_"+ x[0].split("//")[2]
         _content = "(postID INT PRIMARY KEY NOT NULL, postUrl, MorF, School, postTime, countlikes, countComments, Content" + ")" 
@@ -46,15 +52,20 @@ def renewPostList():
         _url = "https://www.dcard.tw/" + x[0].split("//")[2]
         _commad = _url + "?latest=true"
         target = ConnectWeb(_commad)
-        postdic = GetpostList(target,228980271)
+    
+        postidc = GetpostList(target,228948700)
+        print(postdic)
 
         #To Create the class and get the data
         for key in postdic.keys():
+            _tcount2 += 1
+            print("Trying to calPost " + str(_tcount2) + " of " + str(len(postdic.keys())))
+
             _url = postdic[key].c_url
             rawlist = Getcontent(_url)
             postdic[key].c_MorF = rawlist[4]
             postdic[key].c_school = rawlist[5]
-            postdic[key].c_postTime = "2018+/" + rawlist[6]
+            postdic[key].c_postTime = "2018/" + rawlist[6]
             postdic[key].c_countLikes = rawlist[1]
             postdic[key].c_countComments = rawlist[2]
             postdic[key].c_postContent = rawlist[3]
@@ -66,13 +77,12 @@ def renewPostList():
             _input = "(" \
                         + "\"" + str(addkey) + "\"" + ","  \
                         + "\""+ str(postdic[addkey].c_url)+ "\"" + "," \
-                        + "\"" + str(postdic[addkey].c_MorF)+ "\"," + \
+                        + "\"" + str(postdic[addkey].c_MorF)+ "\"," \
                         + "\"" + str(postdic[addkey].c_school)+ "\"," \
                         + "\"" + str(postdic[addkey].c_postTime)+ "\"," \
                         + "\"" + str(postdic[addkey].c_countLikes)+ "\"," \
                         + "\"" + str(postdic[addkey].c_countComments)+ "\"," \
-                        + "\"" + str(postdic[addkey].c_postContent)+ "\"" \
-                        + ")"
+                        + "\"" + str(postdic[addkey].c_postContent)+ "\")"
 
             print(_commad + _command_column + _input)
             cursor.execute(_commad + _command_column + _input)
@@ -80,5 +90,4 @@ def renewPostList():
     conn.commit()
     conn.close()
 
-renewBoardList()
 renewPostList()

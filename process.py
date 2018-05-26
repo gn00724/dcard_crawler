@@ -75,8 +75,8 @@ def ConnectWeb(url):
     
 
     #Attach the Target html like man does
-    x = _driver.get("https://www.google.com/")
-    time.sleep(random.randint(1,3))
+    #x = _driver.get("https://www.google.com/")
+    #time.sleep(random.randint(1,3))
     x = _driver.get(m_url)
     print("Connect Done")
     time.sleep(random.randint(3,5))
@@ -152,12 +152,16 @@ def GetpostList(driver,datalstID):
     else:
         print(lstID, m_id)
         GetpostList(_driver,m_id)
-    None
+    
+    return "Not yet"
 
 def Getcontent(article_url):
     #id, likes_count, respones_count, content
     m_url = article_url
     _driver = ConnectWeb(m_url)
+
+    print("Trying to get post " + m_url)
+
     try:
         m_bs_content = bs(_driver.page_source, "html.parser").find_all("div", class_="Post_content_NKEl9")
         m_bs_likes = bs(_driver.page_source, "html.parser").find_all("button", class_="PostFooter_likeBtn_jmo71")
