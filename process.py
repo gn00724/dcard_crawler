@@ -220,5 +220,3 @@ def CheckandRemoveEmoji(inputString):
 #for x in keys:
 #    boarddic[x].url
 #    boarddic[x].boardname
-
-print(Getcontent("https://www.dcard.tw/f/makeup/p/228965095"))
