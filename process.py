@@ -8,6 +8,7 @@ from bs4 import BeautifulSoup as bs
 import sys
 import sqlite3 as sql
 from datetime import datetime
+import re
 
 #initZone
 board_dic = {}
@@ -182,11 +183,11 @@ def Getcontent(article_url):
     
     try:
         m_bs_id = m_url.split("/")[-1]
-        m_content = m_bs_content[0].text
+        m_content = CheckandRemoveEmoji(m_bs_content[0].text)
         m_likes = m_bs_likes[0].text.split(" ")[1]
         m_respons = m_bs_respon[0].text.split(" ")[1]
         m_MorF = "F" if "female" in str(m_bs_Author[0].contents[0]) else "M"
-        m_school = m_bs_Author_school[0].text
+        m_school = CheckandRemoveEmoji(m_bs_Author_school[0].text)
         m_date = m_bs_postDate[0].text.replace("日", "").replace("月", "/")
     except:
         m_content = "Deleted"
@@ -194,6 +195,21 @@ def Getcontent(article_url):
 
     _driver.close()
     return [m_bs_id, m_likes, m_respons, m_content, m_MorF, m_school, m_date]
+
+
+def CheckandRemoveEmoji(inputString):
+    outputString = ""
+    m_input = inputString
+
+    emoji_pattern = re.compile("["
+            u"\U0001F600-\U0001F64F"  # emoticons
+            u"\U0001F300-\U0001F5FF"  # symbols & pictographs
+            u"\U0001F680-\U0001F6FF"  # transport & map symbols
+            u"\U0001F1E0-\U0001F1FF"  # flags (iOS)
+            u"\U0001F900-\U0001F9FF"  # Supplemental Symbols and Pictographs
+                            "]+", flags=re.UNICODE)
+    outputString= emoji_pattern.sub(r'', m_input) # no emoji
+    return outputString
 
 
 #print(Getcontent("https://www.dcard.tw/f/makeup/p/228944963"))
@@ -204,3 +220,5 @@ def Getcontent(article_url):
 #for x in keys:
 #    boarddic[x].url
 #    boarddic[x].boardname
+
+print(Getcontent("https://www.dcard.tw/f/makeup/p/228965095"))

@@ -83,7 +83,23 @@ def renewPostList():
                         + "\"" + str(postdic[addkey].c_postContent)+ "\")"
 
             print(_commad + _command_column + _input)
-            cursor.execute(_commad + _command_column + _input)
+            try:
+                cursor.execute(_commad + _command_column + _input)
+            except:
+                #May have some Emoji but pass thought the check
+                _commad = "INSERT OR REPLACE INTO "+_tableName
+                _command_column = "(postID, postUrl, MorF, School, postTime, countlikes, countComments, Content) VALUES "
+                _input = "(" \
+                        + "\"" + str(addkey) + "\"" + ","  \
+                        + "\""+ str(postdic[addkey].c_url)+ "\"" + "," \
+                        + "\"" + str(postdic[addkey].c_MorF)+ "\"," \
+                        + "\"" + str(postdic[addkey].c_school)+ "\"," \
+                        + "\"" + str(postdic[addkey].c_postTime)+ "\"," \
+                        + "\"" + str(postdic[addkey].c_countLikes)+ "\"," \
+                        + "\"" + str(postdic[addkey].c_countComments)+ "\"," \
+                        + "\"" + "Content ERROR"+ "\")"
+
+                cursor.execute(_commad + _command_column + _input)
 
     conn.commit()
     conn.close()
