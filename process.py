@@ -78,7 +78,7 @@ def ConnectWeb(url):
     #Attach the Target html like man does
     #x = _driver.get("https://www.google.com/")
     #time.sleep(random.randint(1,3))
-    x = _driver.get(m_url)
+    _driver.get(m_url)
     print("Connect Done")
     time.sleep(random.randint(3,5))
 

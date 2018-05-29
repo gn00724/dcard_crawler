@@ -31,26 +31,34 @@ def renewBoardList():
     conn.commit()
     conn.close()
 
+    print("renewBoardList Done")
+
 #2.renew all board
 def renewPostList():
     conn = sqlite3.connect('./Resource/database/dcard.db')
     cursor = conn.cursor()
-    boardList = cursor.execute('SELECT boardUrl From dcardBoardList')
+    boardList = list(cursor.execute('SELECT boardUrl From dcardBoardList'))
     _tcount = 0
     _tcount2 = 0
 
     for x in boardList:
         _tcount += 1
-        print("Trying to calBoard " + str(_tcount) + " of " + str(len(boardList.fetchall())))
+        print("Trying to calBoard " + str(_tcount) + " of " + str(len(boardList)))
 
         _commad = "CREATE TABLE if not exists "
         _tableName = "board_"+ x[0].split("//")[2]
+        try:
+            _tableName = "board_" + _tableName.split("f/")[1]
+        except:
+            None
         _content = "(postID INT PRIMARY KEY NOT NULL, postUrl, MorF, School, postTime, countlikes, countComments, Content" + ")" 
-        #print(_commad+_tableName+_content)
+        print(_commad+_tableName+_content)
         cursor.execute(_commad+_tableName+_content)
 
         _url = "https://www.dcard.tw/" + x[0].split("//")[2]
         _commad = _url + "?latest=true"
+        print("deal with url " + _url)
+
         target = ConnectWeb(_commad)
         postdic = GetpostList(target,228966933)
 
@@ -100,9 +108,12 @@ def renewPostList():
                         + "\"" + "Content ERROR"+ "\")"
 
                 cursor.execute(_commad + _command_column + _input)
-
+    
     conn.commit()
     conn.close()
+
+    print("renewPostList Done")
+
 
 renewBoardList()
 renewPostList()
