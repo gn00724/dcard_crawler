@@ -9,20 +9,20 @@ import sys
 import sqlite3 as sql
 from datetime import datetime
 import re
-
-#initZone
-board_dic = {}
+import numpy as np
 
 class DcardBoradList:
+    __slots__ = ['boardname', 'url','postlist']
     def __init__(self, boardname, url):
             self.boardname = boardname
             self.url = "https://www.dcard.tw/" + url
             self.postlist = []
 
 class Dcardpost:
+    __slots__ = ['c_postID', 'c_title','c_MorF','c_school','c_postTime','c_countLikes','c_countComments','c_url','c_postContent']
     def __init__(self, c_postID):
             self.c_postID = int(c_postID)
-            self.title = ""
+            self.c_title = ""
             self.c_MorF = ""
             self.c_school = ""
             self.c_postTime = ""
@@ -82,6 +82,9 @@ def ConnectWeb(url):
     print("Connect Done")
     time.sleep(random.randint(3,5))
 
+    #del all val to save memory
+    del m_url,m_headers,options
+
     return _driver
 
 def GetDcardBoradList(driver):
@@ -98,6 +101,9 @@ def GetDcardBoradList(driver):
             if board_dic.get(x.text) == None:
                 board_dic[x.text] = DcardBoradList(boardname=x.text, url=x.a.get('href'))
     m_driver.close()
+    
+    #del all val to save memory
+    del m_bs,x
     return board_dic
 
 def GetpostList(driver,datalstID):
@@ -131,6 +137,9 @@ def GetpostList(driver,datalstID):
     if lstID > m_id:
         
         print(lstID, m_id)
+        #del all val to save memory
+        del lstID,m_bs,_tmp,m_postdict,x,r,r1,r_url,r_title,r_postID
+
         return GetpostList(_driver,m_id)
 
     else:
@@ -153,9 +162,12 @@ def GetpostList(driver,datalstID):
 
         _driver.close()
         #print("returning " + str(m_postdict))
+        
+        #del all val to save memory
+        del lstID,m_bs,_tmp,x,r,r1,r_url,r_title,r_postID
+        
         return m_postdict
     
-
 def Getcontent(article_url):
     #id, likes_count, respones_count, content
     m_url = article_url
@@ -169,6 +181,7 @@ def Getcontent(article_url):
     m_MorF = ""
     m_school = ""
     m_date = ""
+    m_result = []
 
     try:
         m_bs_content = bs(_driver.page_source, "html.parser").find_all("div", class_="Post_content_NKEl9")
@@ -194,8 +207,12 @@ def Getcontent(article_url):
         print(str(m_bs_id) + " the post was deleted")
 
     _driver.close()
-    return [m_bs_id, m_likes, m_respons, m_content, m_MorF, m_school, m_date]
-
+    m_result = [m_bs_id, m_likes, m_respons, m_content, m_MorF, m_school, m_date]
+    
+    #del all val to save memory
+    del m_url, m_bs_id, m_likes, m_respons, m_content, m_MorF, m_school, m_date
+    
+    return m_result
 
 def CheckandRemoveEmoji(inputString):
     outputString = ""
@@ -209,6 +226,10 @@ def CheckandRemoveEmoji(inputString):
             u"\U0001F900-\U0001F9FF"  # Supplemental Symbols and Pictographs
                             "]+", flags=re.UNICODE)
     outputString= emoji_pattern.sub(r'', m_input) # no emoji
+
+    #del all val to save memory
+    del m_input, emoji_pattern
+    
     return outputString
 
 
