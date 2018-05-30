@@ -41,7 +41,13 @@ def renewPostList():
     _tcount = 0
     _tcount2 = 0
 
+    conn.commit()
+    conn.close()
+
     for x in boardList:
+        conn = sqlite3.connect('./Resource/database/dcard.db')
+        cursor = conn.cursor()
+        _tcount2 = 0
         _tcount += 1
         print("Trying to calBoard " + str(_tcount) + " of " + str(len(boardList)))
 
@@ -60,7 +66,7 @@ def renewPostList():
         print("deal with url " + _url)
 
         target = ConnectWeb(_commad)
-        postdic = GetpostList(target,228966933)
+        postdic = GetpostList(target,228973440)
 
         #To Create the class and get the data
         for key in postdic.keys():
@@ -108,12 +114,10 @@ def renewPostList():
                         + "\"" + "Content ERROR"+ "\")"
 
                 cursor.execute(_commad + _command_column + _input)
-    
-    conn.commit()
-    conn.close()
-
+            
+        conn.commit()
+        conn.close()
+        
     print("renewPostList Done")
 
-
-renewBoardList()
 renewPostList()
