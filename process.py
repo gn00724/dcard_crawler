@@ -10,6 +10,7 @@ import sqlite3 as sql
 from datetime import datetime
 import re
 import numpy as np
+import gc
 
 class DcardBoradList:
     __slots__ = ['boardname', 'url','postlist']
@@ -84,6 +85,7 @@ def ConnectWeb(url):
 
     #del all val to save memory
     del m_url,m_headers,options
+    gc.collect()
 
     return _driver
 
@@ -104,6 +106,8 @@ def GetDcardBoradList(driver):
     
     #del all val to save memory
     del m_bs,x
+    gc.collect()
+
     return board_dic
 
 def GetpostList(driver,datalstID):
@@ -165,6 +169,7 @@ def GetpostList(driver,datalstID):
         
         #del all val to save memory
         del lstID,m_bs,_tmp,x,r,r1,r_url,r_title,r_postID
+        gc.collect()
         
         return m_postdict
     
@@ -211,6 +216,7 @@ def Getcontent(article_url):
     
     #del all val to save memory
     del m_url, m_bs_id, m_likes, m_respons, m_content, m_MorF, m_school, m_date
+    gc.collect()
     
     return m_result
 
@@ -229,6 +235,7 @@ def CheckandRemoveEmoji(inputString):
 
     #del all val to save memory
     del m_input, emoji_pattern
+    gc.collect()
     
     return outputString
 

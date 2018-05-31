@@ -66,7 +66,7 @@ def renewPostList():
         print("deal with url " + _url)
 
         target = ConnectWeb(_commad)
-        postdic = GetpostList(target,228976514)
+        postdic = GetpostList(target,228979550)
 
         #To Create the class and get the data
         for key in postdic.keys():
