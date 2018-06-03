@@ -133,5 +133,6 @@ def givevalue_thread(class_postdickey,count,total):
     m_postdic.c_postContent = rawlist[3]
 
     semlock.release()
+    print("realease")
 
 renewPostList()
