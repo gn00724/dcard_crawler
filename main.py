@@ -3,8 +3,12 @@ from process import ConnectWeb
 from process import GetDcardBoradList
 from process import GetpostList
 from process import Getcontent
+import threading
 
 import sqlite3
+
+#max_threading number
+semlock = threading.BoundedSemaphore(10)
 
 #scarpy Dcard and make the database as sqlite setting
 #connect our db
@@ -66,22 +70,17 @@ def renewPostList():
         print("deal with url " + _url)
 
         target = ConnectWeb(_commad)
-        postdic = GetpostList(target,228979550)
+        postdic = GetpostList(target,228994827)
 
         #To Create the class and get the data
         for key in postdic.keys():
+            _total = len(postdic.keys())
             _tcount2 += 1
-            print("Trying to calPost " + str(_tcount2) + " of " + str(len(postdic.keys())))
-
-            _url = postdic[key].c_url
-            rawlist = Getcontent(_url)
-            postdic[key].c_MorF = rawlist[4]
-            postdic[key].c_school = rawlist[5]
-            postdic[key].c_postTime = "2018/" + rawlist[6]
-            postdic[key].c_countLikes = rawlist[1]
-            postdic[key].c_countComments = rawlist[2]
-            postdic[key].c_postContent = rawlist[3]
-
+            semlock.acquire()
+            mthread = threading.Thread(target=givevalue_thread,args=(postdic[key],_tcount2,_total) ,name="threading_" + str(_tcount2))
+            mthread.start()
+        
+        mthread.join()
         #To add in Table DB
         for addkey in postdic.keys():
             _commad = "INSERT OR REPLACE INTO "+_tableName
@@ -120,5 +119,19 @@ def renewPostList():
         
     print("renewPostList Done")
 
-renewBoardList()
+def givevalue_thread(class_postdickey,count,total):
+    m_postdic = class_postdickey
+    print("Trying to calPost " + str(count) + " of " + str(total))
+
+    _url = m_postdic.c_url
+    rawlist = Getcontent(_url)
+    m_postdic.c_MorF = rawlist[4]
+    m_postdic.c_school = rawlist[5]
+    m_postdic.c_postTime = "2018/" + rawlist[6]
+    m_postdic.c_countLikes = rawlist[1]
+    m_postdic.c_countComments = rawlist[2]
+    m_postdic.c_postContent = rawlist[3]
+
+    semlock.release()
+
 renewPostList()
